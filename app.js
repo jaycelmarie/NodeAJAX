@@ -37,7 +37,12 @@ async function readProductsFromJson() {
 }
 
 // HTML template for rendering products
-const productHtmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+const productHtmlTemplate = fs.readFileSync(path.join(__dirname, 'templates/products.html'), 'utf8');
+
+app.get("/", function (req, res) {
+    // Serve the index.html file when the root route is accessed
+    res.sendFile(path.join(__dirname, 'templates/index.html'));
+});
 
 app.get("/products", async function (req, res) {
     try {
@@ -67,9 +72,6 @@ app.get("/products", async function (req, res) {
         console.error("Error fetching products:", error);
         res.status(500).send("Error fetching products");
     }
-});
-app.get("/", function (req, res) {
-    res.send("This is the root route!");
 });
 
 const PORT = process.env.PORT || 8080;
