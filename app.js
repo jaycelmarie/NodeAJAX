@@ -23,15 +23,24 @@ async function createCollection() {
     console.log("Created collection 'products'");
 }
 
-async function readProductsFromJson() {
+async function insertProductsToDb(products) {
     try {
-        const productsFilePath = path.join(__dirname, 'open-data-set', 'products.json');
-        const productsData = fs.readFileSync(productsFilePath, 'utf8');
-        const products = JSON.parse(productsData);
-        console.log("Fetched products from JSON file:", products);
+        const db = client.db("myDatabase");
+        const result = await db.collection("products").insertMany(products);
+        console.log(`${result.insertedCount} products inserted into MongoDB`);
+    } catch (error) {
+        console.error("Error inserting products into MongoDB:", error);
+    }
+}
+
+async function readProductsFromDb() {
+    try {
+        const db = client.db("myDatabase");
+        const products = await db.collection("products").find().toArray();
+        console.log("Fetched products from MongoDB:", products);
         return products;
     } catch (error) {
-        console.error("Error reading products from JSON file:", error);
+        console.error("Error reading products from MongoDB:", error);
         return [];
     }
 }
@@ -46,7 +55,7 @@ app.get("/", function (req, res) {
 
 app.get("/products", async function (req, res) {
     try {
-        const products = await readProductsFromJson(); // Read products from JSON file
+        const products = await readProductsFromDb(); // Read products from MongoDB
         if (products.length === 0) {
             // If no products found, send an appropriate response
             return res.status(404).send("No products found");
@@ -79,6 +88,10 @@ const PORT = process.env.PORT || 8080;
 (async () => {
     await connectToDb(); // Connect to the database
     await createCollection(); // Create the collection
+    const productsFilePath = path.join(__dirname, 'open-data-set', 'products.json');
+    const productsData = fs.readFileSync(productsFilePath, 'utf8');
+    const products = JSON.parse(productsData);
+    await insertProductsToDb(products); // Insert products data into MongoDB
     app.listen(PORT, () => {
         console.log(`Server is listening on port ${PORT}`);
     });
