@@ -84,14 +84,17 @@ app.get('/products', async (req, res) => {
 // Search route to search for a product in the database
 app.get('/search', async (req, res) => {
     const query = req.query.q; // Extract the search query from the URL query parameter
+    //console.log(query);
     try {
         const db = client.db('myDatabase');
         const products = await db.collection('products').find({
             $or: [
                 { name: { $regex: query, $options: 'i' } }, // Case-insensitive search by product name
-                { description: { $regex: query, $options: 'i' } } // Case-insensitive search by description
+                { description: { $regex: query, $options: 'i' } }, // Case-insensitive search by description
+                { sku: parseInt(query) } // Case-insensitive search by SKU
             ]
         }).toArray();
+        console.log(products);
         res.json(products);
     } catch (error) {
         console.error('Error searching products:', error);
@@ -105,6 +108,9 @@ app.post('/insert', async (req, res) => {
     try {
         // Extract product data from request body
         const { name, sku, type, price, description, manufacturer, model, url, image } = req.body;
+        
+        // Parse the SKU value into an integer
+        const parsedSKU = parseInt(sku);
 
         // Validate required fields
         if (!name || !sku || !type || !price || !description || !manufacturer || !model || !url || !image) {
@@ -114,7 +120,7 @@ app.post('/insert', async (req, res) => {
         // Create a new product object
         const newProduct = {
             name,
-            sku,
+            sku: parsedSKU,
             type,
             price,
             description,
@@ -136,7 +142,6 @@ app.post('/insert', async (req, res) => {
     }
 });
 
-// Update Product
 // Update route to update an existing product in the database
 app.put('/update/:id', async (req, res) => {
 
@@ -149,7 +154,7 @@ app.put('/update/:id', async (req, res) => {
         const objectId = new ObjectId(id);
 
         // Log the updated product data
-        console.log('Updated product data:', updatedProductData);
+        //console.log('Updated product data:', updatedProductData);
 
         // Use MongoDB's update operations to update the product in the database
         const db = client.db('myDatabase');
@@ -167,6 +172,9 @@ app.put('/update/:id', async (req, res) => {
             image_upt: 'image'
         };
 
+        // Parse the SKU value into an integer
+        const skuValue = parseInt(updatedProductData['sku_upt']);
+
         // Create an empty object to store the update operations
         let updateOperations = {};
 
@@ -178,6 +186,7 @@ app.put('/update/:id', async (req, res) => {
                 if (dbFieldName) {
                     // Set the updated value in the updateOperations object using the database field name
                     updateOperations[dbFieldName] = updatedProductData[field];
+                    updateOperations['sku'] = skuValue;
                 }
             }
         }
@@ -190,7 +199,8 @@ app.put('/update/:id', async (req, res) => {
             // Perform the update only if there are modified fields
             const result = await db.collection('products').updateOne(
                 { _id: objectId }, // Filter by ID
-                { $set: updateOperations } // Set the updated product data
+                { $set: updateOperations,
+                 } // Set the updated product data
             );
 
             if (result.modifiedCount === 1) {
@@ -211,30 +221,23 @@ app.put('/update/:id', async (req, res) => {
     }
 });
 
-// app.put('/update/:sku', async (req, res) => {
-//     try {
-//         const sku = req.params.sku; // Extract the SKU from the request parameters
-//         console.log('Received request to update product with SKU:', sku);
-
-//         // Use MongoDB's findOne method to search for a document with the specified SKU
-//         const db = client.db('myDatabase');
-//         const product = await db.collection('products').findOne({ sku: sku });
-
-//         if (product) {
-//             // If a document with the specified SKU is found, proceed with the update operation
-//             // Update the product data here...
-//             res.status(200).json({ message: 'SKU exists. Proceed with update.' });
-//         } else {
-//             // If no document with the specified SKU is found, return a 404 error
-//             res.status(404).json({ error: 'SKU not found.' });
-//         }
-//     } catch (error) {
-//         console.error('Error updating product:', error);
-//         res.status(500).json({ error: 'Error updating product' });
-//     }
-// });
-
-
+// Delete a product
+app.delete('/delete/:sku', async (req, res) => {
+    try {
+        const sku = req.params.sku;
+        const db = client.db('myDatabase');
+        console.log('Received request to delete product with SKU:', sku);
+        const result = await db.collection('products').deleteOne({ sku: parseInt(sku) });
+        if (result.deletedCount === 1) {
+            res.status(200).json({ message: 'Product deleted successfully' });
+        } else {
+            res.status(404).json({ error: 'Product not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ error: 'Error deleting product' });
+    }
+});
 
 
 const PORT = process.env.PORT || 8080;

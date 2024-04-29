@@ -12,15 +12,16 @@
     <!-- Search form for products -->
     <form id="searchForm">
         <input type="text" id="searchInput" placeholder="Search products">
-        <button type="submit">Search</button>
+        <button type="submit" id="searchBtn">Search</button>
     </form>
 
     <!-- display the search results -->
-    <div id="searchResults"></div>
+    <div id="searchResults" style="display: none;"></div>
 
     <!-- Buttons -->
-    <button id="showAddProductForm">Add Product</button>
-    <button id="updateProductButton">Update Product</button>
+    <button id="showAddProductForm" class="other-buttons">Add Product</button>
+    <button id="updateProductButton" class="other-buttons">Update Product</button>
+    <button id="deleteProductButton" class="other-buttons">Delete Product</button>
     
     <!-- Add product form (initially hidden) -->
     <div id="addProductForm" style="display: none;">
@@ -59,17 +60,15 @@
         </form>
     </div>
 
-    <!-- Modal for search product -->
-    <div id="searchProductModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <input type="text" id="searchProductName" placeholder="Enter product name">
-        <button id="searchProductButton">Search</button>
-    </div>
-    </div>
-
-    <!-- Add product form (for updating) -->
+    <!-- Update Form -->
     <div id="updateProductForm" style="display: none;">
+        <!-- Modal for search product -->
+        <div id="searchProductModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <input type="text" id="searchProductName" placeholder="Enter product name">
+                <button id="searchProductButton">Search</button>
+            </div>
+        </div>
         <form id="displayUpdateForm">
             <h1> Update Product </h1>
             <!-- Add product fields -->
@@ -102,8 +101,17 @@
             
             <!-- Submit button -->
             <button type="submitUpdate">Submit</button>
+            <button id="clearFieldsButton">Clear Fields</button>
         </form>
     </div>
+
+    <!-- Input field and button for deleting a product -->
+    <div id="deleteProductSection" style="display: none;">
+        <input type="text" id="skuToDelete" placeholder="Enter SKU">
+        <button id="searchSkuButton">Search SKU</button>
+    </div>
+
+
 
     <script src="../public/main.js"></script>
 </body>
