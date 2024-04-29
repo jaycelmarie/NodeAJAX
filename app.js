@@ -114,7 +114,6 @@ app.get('/search', async (req, res) => {
     }
 });
 
-
 // Insert route to add a new product
 // Route to insert a new product into the database
 app.post('/insert', async (req, res) => {
@@ -199,7 +198,10 @@ app.put('/update/:id', async (req, res) => {
                 if (dbFieldName) {
                     // Set the updated value in the updateOperations object using the database field name
                     updateOperations[dbFieldName] = updatedProductData[field];
-                    updateOperations['sku'] = skuValue;
+                    // Check if the SKU field is modified and assign the parsed SKU value
+                    if (field === 'sku_upt') {
+                        updateOperations['sku'] = skuValue;
+                    }
                 }
             }
         }

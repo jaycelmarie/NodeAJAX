@@ -12,6 +12,11 @@ nav {
     text-align: center;
 }
 
+img {
+    width: 200px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+}
+
 /* Make the logo smaller */
 #logo {
     width: 100px; /* Adjust the width as needed */
@@ -198,7 +203,7 @@ input[type="submit"]:hover {
 }
 
 
-/* START OF PRICE RANGE */
+/* ========= START OF PRICE RANGE ========== */
 .card{
     width: 400px;
     background-color: #fff;

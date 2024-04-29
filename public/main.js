@@ -78,7 +78,7 @@ searchSkuButton.addEventListener('click', async () => {
 
    // Function to add event listener for deleting the product
 async function deleteProductListener(product) {
-    console.log('hi im here');
+    //console.log('entering deleteProductListener function...');
     try {
         if (product && product.length > 0) {
             const skuToDelete = product[0].sku; // Get the SKU of the product
@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
             const product = await response.json();
             if (product) {
+                console.log('got the product!', product);
                 // Display the update form with the product details
                 displayUpdateForm(product);
                 updateProductListener(product);
@@ -151,6 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Function to display the update form with product details
     function displayUpdateForm(product) {
+
+    console.log(product);
 
     // Populate the form fields with product details
     updateProductForm.querySelector('#name_upt').value = product[0].name;
@@ -387,6 +390,7 @@ document.getElementById('searchInput').addEventListener('keypress', function(eve
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent form submission
         searchAndFilterProducts();
+
     }
 });
 
