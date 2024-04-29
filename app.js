@@ -81,26 +81,39 @@ app.get('/products', async (req, res) => {
     }
 });
 
+// ===== PRICE SEARCH UP ========
 // Search route to search for a product in the database
 app.get('/search', async (req, res) => {
     const query = req.query.q; // Extract the search query from the URL query parameter
-    //console.log(query);
+    const minPrice = parseFloat(req.query.minPrice); // Convert minPrice to number
+    const maxPrice = parseFloat(req.query.maxPrice); // Convert maxPrice to number
+    const page = parseInt(req.query.page) || 1; // Default page to 1 if not provided
+    const limit = 10; // Number of products per page
+
     try {
         const db = client.db('myDatabase');
-        const products = await db.collection('products').find({
+        let queryFilter = {
             $or: [
-                { name: { $regex: query, $options: 'i' } }, // Case-insensitive search by product name
-                { description: { $regex: query, $options: 'i' } }, // Case-insensitive search by description
-                { sku: parseInt(query) } // Case-insensitive search by SKU
+                { name: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
+                { sku: parseInt(query) }
             ]
-        }).toArray();
-        console.log(products);
+        };
+
+        if (minPrice !== undefined && maxPrice !== undefined) {
+            queryFilter.$or.push({ price: { $gte: minPrice, $lte: maxPrice } });
+        }
+
+        const skip = (page - 1) * limit;
+        const products = await db.collection('products').find(queryFilter).skip(skip).limit(limit).toArray();
+        
         res.json(products);
     } catch (error) {
         console.error('Error searching products:', error);
         res.status(500).send('Error searching products');
     }
 });
+
 
 // Insert route to add a new product
 // Route to insert a new product into the database

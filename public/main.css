@@ -1,0 +1,290 @@
+body{
+    /* background-image: linear-gradient(#034d5e, #1c2777, #3109c1, #1e065f, #034d5e); */
+    background-image: url('https://cliply.co/wp-content/uploads/2019/06/401906190_ITS_COMPLICATED_400px.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+
+/* Center the logo horizontally */
+nav {
+    text-align: center;
+}
+
+/* Make the logo smaller */
+#logo {
+    width: 100px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Container */
+
+.container {
+    background-image: url('https://cliply.co/wp-content/uploads/2021/07/402107330_WHITE_WAVES_400px.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+    margin: 20px auto; /* Center the container horizontally */
+    max-width: 70%; /* Maximum width */
+    height: auto; /* Allow height to adjust based on content */
+    max-height: 600px; /* Set a maximum height */
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
+    padding: 20px;
+    border-radius: 5px; /* Adjust the value as needed */
+}
+
+.container h1 {
+    font-size: 24px; /* Adjust the heading font size */
+    margin-bottom: 15px; /* Add spacing below the heading */
+    text-align: center;
+}
+
+.container label {
+    font-weight: bold; /* Make labels bold */
+}
+
+.container input[type="text"],
+.container input[type="number"],
+.container input[type="url"],
+.container textarea {
+    /* Your existing input field styles */
+    font-size: 16px; /* Adjust the font size */
+}
+
+/* Style for the form buttons */
+.container button {
+    padding: 10px 20px; /* Add padding */
+    margin-right: 10px; /* Add spacing between buttons */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    cursor: pointer; /* Add pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.container button:hover {
+    background-color: #0056b3; /* Darker blue background color on hover */
+}
+
+/* Style for the form buttons with class "submit" */
+.container button[type="submit"] {
+    background-color: #28a745; /* Green background color */
+}
+
+.container button[type="submit"]:hover {
+    background-color: #218838; /* Darker green background color on hover */
+}
+
+.other-buttons {
+    display: flex;
+    margin-left: 10px; /* Add space between buttons */
+}
+
+/* Button styling */
+button {
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Add padding */
+    cursor: pointer; /* Add cursor pointer */
+    margin: 5px; /* Add margin */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+
+/* Form styling */
+form {
+    margin: 20px 0; /* Add margin */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+textarea {
+    padding: 10px; /* Add padding */
+    margin-bottom: 10px; /* Add bottom margin */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding and border in width */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+input[type="submit"] {
+    background-color: #28a745; /* Green submit button */
+}
+
+input[type="submit"]:hover {
+    background-color: #218838; /* Darker green color on hover */
+}
+
+/* Modal styling */
+.modal {
+    display: none; /* Hide by default */
+    position: fixed; /* Fixed position */
+    z-index: 1; /* Topmost layer */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    overflow: auto; /* Enable scrolling */
+}
+
+.modal-content {
+    background-color: #fefefe; /* White background */
+    margin: 20% auto; /* Center modal vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Modal width */
+}
+
+/* Clear fields button */
+#clearFieldsButton {
+    background-color: #dc3545; /* Red color */
+}
+
+#clearFieldsButton:hover {
+    background-color: #c82333; /* Darker red color on hover */
+}
+
+/* Adjust width of search input */
+#searchInput {
+    width: calc(100% - 170px); /* Adjust width */
+    margin-right: 10px; /* Add margin between input and button */
+}
+
+
+.buttons-container {
+    display: flex; /* Use flexbox */
+    justify-content: center; 
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Add margin to separate from other content */
+}
+
+.product-details h2 {
+    text-align: center; 
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    padding-top: 5px;
+}
+
+.product-details p {
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    padding: 2px;
+}
+
+.product-details strong {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.product-image {
+    width: 200px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.productList {
+    list-style-type: none;
+}
+
+
+/* START OF PRICE RANGE */
+.card{
+    width: 400px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 9px 20px 0px rgba(14,88,48,0.10);
+}
+
+.price-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+label{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+p {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.range-slider{
+    width: 400px;
+    position: relative;
+    margin: 15px 0 30px 0;
+}
+
+.range-fill {
+    height: 6px;
+    background-color: #36b37e;
+    position: absolute;
+    z-index: 1;
+}
+
+input[type="range"]{
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    position: absolute;
+    left: 0;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: #36b37e;
+    cursor: pointer;
+    margin-top: -5px;
+    position: relative;
+    z-index: 1;
+}
+
+input[type="range"]::-webkit-slider-runnable-track{
+    width: 100%;
+    height: 5px;
+    background: #e8e8e8;
+    border-radius: 3px;
+    border: none;
+}
+
+/*===== START OF PAGINATION ======== */
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #0562c5;
+}
+
+#currentPage {
+    font-weight: bold;
+}

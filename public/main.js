@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for clicking the search button in the modal
     searchProductButton.addEventListener('click', async () => {
         const productName = searchProductNameInput.value.trim();
+        searchProductModal.style.display = 'none';
         
         if (productName) {
         // Send a request to search for the product by name
@@ -304,19 +305,113 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ====== START OF SEARCH FUNCTIONALITY ========
+const minValue = document.getElementById("min-value");
+const maxValue = document.getElementById("max-value");
+const rangeFill = document.querySelector(".range-fill");
 
-document.getElementById('searchForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
-        
-        const searchQuery = document.getElementById('searchInput').value;
-        try {
-            const response = await fetch(`/search?q=${searchQuery}`);
-            const products = await response.json();
-            displaySearchResults(products);
-        } catch (error) {
-            console.error('Error searching products:', error);
-        }
+function validateRange() {
+    const minPrice = parseInt(document.querySelector('.min-price').value);
+    const maxPrice = parseInt(document.querySelector('.max-price').value);
+
+    if (minPrice > maxPrice) {
+        const tempValue = maxPrice;
+        maxPrice = minPrice;
+        minPrice = tempValue;
+    }
+
+    minValue.innerHTML = "$" + minPrice;
+    maxValue.innerHTML = "$" + maxPrice;
+}
+
+const inputElements = document.querySelectorAll("input[type=range]");
+
+inputElements.forEach((element) => {
+    element.addEventListener("input", validateRange);
+});
+
+////////////// 
+
+const minPriceRange = document.querySelector('.min-price');
+const maxPriceRange = document.querySelector('.max-price');
+
+if (minPriceRange && maxPriceRange) {
+    minPriceRange.addEventListener('input', () => {
+        minPrice = parseInt(minPriceRange.value);
+        searchAndFilterProducts();
     });
+
+    maxPriceRange.addEventListener('input', () => {
+        maxPrice = parseInt(maxPriceRange.value);
+        searchAndFilterProducts();
+    });
+}
+
+
+// Function to search and filter products based on search query and price range
+async function searchAndFilterProducts() {
+    const searchQuery = document.getElementById('searchInput').value;
+    let url = `/search?q=${searchQuery}`;
+
+    // Check if the price range inputs have values
+    const minPriceInput = document.querySelector('.min-price');
+    const maxPriceInput = document.querySelector('.max-price');
+
+    // Update minPrice and maxPrice if inputs have values
+    if (minPriceInput.value !== "") {
+        minPrice = parseInt(minPriceInput.value);
+    }
+    if (maxPriceInput.value !== "") {
+        maxPrice = parseInt(maxPriceInput.value);
+    }
+
+    // Append price range parameters to the URL
+    if (minPrice !== null && maxPrice !== null) {
+        url += `&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+    }
+
+    // Limit the number of output products to 10
+    url += '&limit=10';
+    
+    try {
+        const response = await fetch(url);
+        const products = await response.json();
+        displaySearchResults(products);
+    } catch (error) {
+        console.error('Error searching products:', error);
+    }
+}
+
+// Add event listener for keypress event on the search input
+document.getElementById('searchInput').addEventListener('keypress', function(event) {
+    // Check if the key pressed is Enter (key code 13)
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        searchAndFilterProducts();
+    }
+});
+
+// Add event listener for submit event on the search form
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+    searchAndFilterProducts();
+});
+
+// Add event listener for input event on price range inputs
+document.getElementById('min-value').addEventListener('input', searchAndFilterProducts);
+document.getElementById('max-value').addEventListener('input', searchAndFilterProducts);
+function displayNoProductsFoundMessage() {
+    const searchResults = document.getElementById('searchResults');
+    searchResults.style.display = 'block';
+    searchResults.innerText = 'No products found';
+    searchResults.style.color = 'red';
+    searchResults.style.fontWeight = 'bold';
+}
+
+function clearNoProductsFoundMessage() {
+    const searchResults = document.getElementById('searchResults');
+    searchResults.style.color = ''; // Reset the color
+    searchResults.style.fontWeight = ''; // Reset the font weight
+}
 
 // Function to display search results on the page
 function displaySearchResults(products) {
@@ -327,23 +422,26 @@ function displaySearchResults(products) {
 
     searchResultsContainer.innerHTML = ''; // Clear previous search results
     if (products.length === 0) {
-        searchResultsContainer.innerHTML = '<p>No products found</p>';
-        return;
-    }
-    else {
+        displayNoProductsFoundMessage();
+    } else {
+        clearNoProductsFoundMessage(); // Clear the styling if products are found
         const productList = document.createElement('ul');
+        productList.classList.add('productList'); // Add the productList class
         products.forEach(product => {
             const productItem = document.createElement('li');
             productItem.innerHTML = `
-                <h2>${product.name}</h2>
-                <p>SKU: ${product.sku}</p>
-                <p>Type: ${product.type}</p>
-                <p>Price: $${product.price}</p>
-                <p>Description: ${product.description}</p>
-                <p>Manufacturer: ${product.manufacturer}</p>
-                <p>Model: ${product.model}</p>
-                <p>URL: <a href="${product.url}">${product.url}</a></p>
-                <img src="${product.image}" alt="${product.name}">
+                <div class="product-details">
+                    <h2>Product Details</h2>
+                    <p><strong>Name:</strong> ${product.name}</p>
+                    <p><strong>SKU:</strong> ${product.sku}</p>
+                    <p><strong>Type:</strong> ${product.type}</p>
+                    <p><strong>Price:</strong> $${product.price}</p>
+                    <p><strong>Description:</strong> ${product.description}</p>
+                    <p><strong>Manufacturer:</strong> ${product.manufacturer}</p>
+                    <p><strong>Model:</strong> ${product.model}</p>
+                    <p><strong>URL:</strong> <a href="${product.url}">${product.url}</a></p>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                </div>
             `;
             productList.appendChild(productItem);
         });
@@ -359,6 +457,37 @@ function displaySearchResults(products) {
      });
 
 } // End of search
+
+// ======== PAGINATION ===========
+let currentPage = 1;
+
+// Event listener for previous page button
+document.getElementById('prevPageBtn').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        fetchProducts(currentPage);
+    }
+});
+
+// Event listener for next page button
+document.getElementById('nextPageBtn').addEventListener('click', () => {
+    currentPage++;
+    fetchProducts(currentPage);
+});
+
+// Function to fetch products for a specific page
+async function fetchProducts(page) {
+    const searchQuery = document.getElementById('searchInput').value;
+    const response = await fetch(`/search?q=${searchQuery}&page=${page}`);
+    const products = await response.json();
+    displaySearchResults(products);
+    updatePageIndicator(page);
+}
+
+// Function to update the current page indicator
+function updatePageIndicator(page) {
+    document.getElementById('currentPage').textContent = `Page ${page}`;
+}
 
 
 
