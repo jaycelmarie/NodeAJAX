@@ -127,14 +127,6 @@ input[type="submit"]:hover {
     border-radius: 5px;
 }
 
-#loginButton{
-    padding: 10px;
-    justify-content: flex-end;
-    display: flex;
-    margin-left: auto;
-    margin-right: 100px;
-}
-
 /* Container */
 
 .container {
@@ -454,4 +446,42 @@ input[type="range"]::-webkit-slider-runnable-track{
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
+}
+
+
+/* DROP DOWN MENU*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#dropbtn {
+    padding: 20px;
+    margin: 0; /* Reset margin */
+    background-color: #717171;
+    border: none;
+    transition: background-color 0.3s; /* Add transition for smoother hover effect */
+}
+
+#dropbtn:hover {
+    background-color: #333333; /* Change background color on hover */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #007bff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 0; /* Reset padding */
+    margin: 0; /* Reset margin */
+    top: 100%; /* Position dropdown content below the button */
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
 }
