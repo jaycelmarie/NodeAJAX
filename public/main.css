@@ -90,6 +90,30 @@ input[type="submit"]:hover {
     background-color: #218838; 
 }
 
+li {
+    font-size: 25px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td{
+    border: 1px solid #ece9e9;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #e2a9a9;
+}
+
+tr:nth-child(odd){
+    background-color: #fdf9f9;
+}
+  
 /* Make the logo smaller */
 #logo {
     width: 100px;

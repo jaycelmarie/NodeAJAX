@@ -12,14 +12,97 @@
             <!-- Your navigation menu goes here -->
         </nav>
     </header>
+    <div class="content">
+        <div class="container">
+            <h1 style="font-size: 50px;"> Application </h1>
+            <p> Nana's Products allow users to Search, Add, Update and Delete products in the database. I used mongodb to store the JSON object of products and user information in the database.</p>
+            <p> The server is running on localhost/8080 where the html file is sending a request to the server using HTTP modules</p>
+            <p> The express server then gets the data from the database (mongodb) e.g products, users info. </p>
+            <p> The server turns the data into a JSON response to send back to the client (HTML) and browser renders it in.</p>
+            <br><br>
+            <h2 style="text-align: center;"> Functionalities </h2>
+            <h3 style="color: red;"> Search </h3>
+            <p> Users can searche for a product by Name, Description or SKU number.</p>
+            <p> If a match/s found, first 10 products are displayed. The user can then navigate through the products with arrows (pagination) </p>
+            <p> If no product is found -> 'No product is found!' message.</p>
+            <p> Alternatively, users can search for products according to price range.</p>
+            <p> If a product is already searched, it filters it so include within searched products along the price range products.</p>
 
-    <main>
-        <!-- Your main content goes here -->
-    </main>
+            <h3 style="color: red;"> Add Product </h3>
+            <p> When adding a new product, the user is presented with a form to fill in the details. </p>
+            <p> Validation: Checks if all fields are filled in, along with checking if SKU is an intenger/number format.</p>
+            <p> Success: New Product Added Displayed.    -----    Failed: Error Message Displayed.</p>
+            
+            <h3 style="color: red;"> Update Product </h3>
+            <p> When updating a product, the user searches up the product name, if a product is found. The product details is show 
+                to user and they are able to make changes. Once submitted, it checks if the SKU if integer/number before successful changes.
+            </p>
+            <p> Success: Product is updated Display Message.    -----    Failed: Error Message Displayed.</p>
 
-    <footer>
-        <p>&copy; 2024 Your Website Name</p>
-    </footer>
+            <h3 style="color: red;"> Delete Product </h3>
+            <p> When deleting a product, a search bar is prompted to user to enter the product's SKU number. </p>
+            <p> Success: Product is deleted Display Message.    -----    Failed: Error Message Displayed.</p>
+            <p> *When searching for the deleted product, it will show as 'No Products Found!'</p>
+
+            <h3 style="color: red;"> User Login/Logout </h3>
+            <p> Users can login/logout. A pop up container renders in to prompt for user logins. Once authenticated and succesful, it logs in the user with a 'Welcome, -username-'.</p>
+            <p> Users can log in using: username/email and password</p>
+            <p> The server then checks if the user is logged in, if yes, it displays the 'Logout' button. the middleware checks if user is logged in. </p>
+            <p> If user decides to log out, the server destroys the session.</p>
+            
+            <h3 style="color: red;"> Registration </h3>
+            <p> If user does not exist, they can register and the details get saved into the database. </p>
+            <p> Even if session is destroyed, the successful registered users can maintain their account. </p>
+            
+            <h1 style="font-size: 50px;"> Technologies </h1>
+            <h2> Frontend Technologies </h2>
+            <table>
+                <tr>
+                    <td>HTML (HyperText Markup Language)</td>
+                    <td>CSS (Cascading Style Sheets)</td>
+                    <td>Javascript (JS)</td>
+                    <td>FETCH API</td>
+                </tr>
+                <tr>
+                    <td>Structuring the content of web pages.</td>
+                    <td>Style HTML elements and defining layout of the web page.</td>
+                    <td>Used for adding interactivity to web pages, handle user actions and making asynchronous requests to server.</td>
+                    <td>Used to make HTTP Reqeusts to fetch or send data asynchronously.</td>
+                </tr>
+            </table>
+  
+            <h2> Backend Technologies </h2>
+            <table>
+                <tr>
+                    <td>Node.js</td>
+                    <td>Express</td>
+                    <td>MongoDB</td>
+                    <td>Express-session Middleware</td>
+                </tr>
+                <tr>
+                    <td>Javascript runtime envrionment to run the Javascripts on the server-side.</td>
+                    <td>Web application framework for node.js to simplify process of building web apps and APIs.</td>
+                    <td>Used to store and manage data e.g product, users.</td>
+                    <td>Express-session Middleware : Manage user sessions and store session data on the server. </td>
+                </tr>
+            </table>
+
+            <h1 style="font-size: 50px;"> Weaknesses </h1>
+            <p> The application cannot filter results of specific product within the price range. Instead, it searches up all products within that price range,
+                along with the specific product searched by user.
+            </p>
+            <p> The user has to know the SKU in order to delete a product.</p>
+
+            <h1 style="font-size: 50px;"> Future Work </h1>
+            <p> - Due to time restriction, I was not able to add a 'Add to Cart' functionality. </p>
+            <p> - I also would like to search products by category. </p>
+
+        </div>
+     
+        <footer>
+            <h6>&copy; 2024 Nana's Production. All rights reserved.</h6>
+        </footer>
+    </div>
 
     <!-- Link to your JavaScript file -->
     <script src="script.js"></script>
