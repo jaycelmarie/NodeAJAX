@@ -1,8 +1,7 @@
 body{
     /* background-image: linear-gradient(#034d5e, #1c2777, #3109c1, #1e065f, #034d5e); */
-    background-image: url('https://cliply.co/wp-content/uploads/2019/06/401906190_ITS_COMPLICATED_400px.gif');
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/4e0cc328008799.56e41b35c50a5.gif');
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-size: cover;
     overflow: hidden;
 }
@@ -23,10 +22,15 @@ img {
     height: auto; /* Maintain aspect ratio */
 }
 
+.content{
+    overflow-y: auto;
+    height: 100vh;
+}
+
 /* Container */
 
 .container {
-    background-image: url('https://cliply.co/wp-content/uploads/2021/07/402107330_WHITE_WAVES_400px.gif');
+    /* background-image: url('https://cliply.co/wp-content/uploads/2021/07/402107330_WHITE_WAVES_400px.gif'); */
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -34,7 +38,7 @@ img {
     margin: 20px auto; /* Center the container horizontally */
     max-width: 70%; /* Maximum width */
     height: auto; /* Allow height to adjust based on content */
-    max-height: 600px; /* Set a maximum height */
+    max-height: 650px; /* Set a maximum height */
     overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
     padding: 20px;
     border-radius: 5px; /* Adjust the value as needed */
@@ -162,7 +166,11 @@ input[type="submit"]:hover {
 /* Adjust width of search input */
 #searchInput {
     width: calc(100% - 170px); /* Adjust width */
-    margin-right: 10px; /* Add margin between input and button */
+    margin-right: 5px; /* Add margin between input and button */
+}
+
+#searchForm{
+    width: 50%;
 }
 
 
@@ -170,7 +178,7 @@ input[type="submit"]:hover {
     display: flex; /* Use flexbox */
     justify-content: center; 
     align-items: center; /* Center items vertically */
-    margin-bottom: 20px; /* Add margin to separate from other content */
+    margin-bottom: 5px;
 }
 
 .product-details h2 {
@@ -205,10 +213,10 @@ input[type="submit"]:hover {
 
 /* ========= START OF PRICE RANGE ========== */
 .card{
-    width: 400px;
+    width: auto;
     background-color: #fff;
     border-radius: 5px;
-    padding: 20px;
+    padding: 5px;
     box-shadow: 0px 9px 20px 0px rgba(14,88,48,0.10);
 }
 
@@ -292,4 +300,100 @@ input[type="range"]::-webkit-slider-runnable-track{
 
 #currentPage {
     font-weight: bold;
+}
+
+/*===== START OF SLIDESHOW ========*/
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Slides */
+.slideshow-container img {
+    width: auto; /* Set width to 100% of the container */
+    height: 500px; /* Automatically adjust height to maintain aspect ratio */
+    object-fit: contain;
+  }
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }

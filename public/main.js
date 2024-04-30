@@ -1,3 +1,19 @@
+// ====== START OF SLIDESHOW ===========
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 10000); // Change image every 2 seconds
+}
+
 // ====== BUTTON CLICKS - HIDING =============
 document.addEventListener('DOMContentLoaded', () => {
     const addProductButton = document.getElementById('showAddProductForm');
@@ -108,6 +124,7 @@ async function deleteProductListener(product) {
 // ====== START OF UPDATE PRODUCT FORM ============
 document.addEventListener('DOMContentLoaded', () => {
     const updateProductButton = document.getElementById('updateProductButton');
+    const container = document.querySelector('.container');
     const searchProductModal = document.getElementById('searchProductModal');
     const searchProductNameInput = document.getElementById('searchProductName');
     const searchProductButton = document.getElementById('searchProductButton');
@@ -116,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for clicking the "Update Product" button
     updateProductButton.addEventListener('click', () => {
       searchProductModal.style.display = 'block'; // Show the search product modal
+      container.style.display = 'block';
     });
   
     // Event listener for clicking the search button in the modal
@@ -332,7 +350,7 @@ inputElements.forEach((element) => {
     element.addEventListener("input", validateRange);
 });
 
-////////////// 
+// ===== START OF PRICE =========
 
 const minPriceRange = document.querySelector('.min-price');
 const maxPriceRange = document.querySelector('.max-price');
@@ -421,8 +439,10 @@ function clearNoProductsFoundMessage() {
 function displaySearchResults(products) {
     const searchResultsContainer = document.getElementById('searchResults');
     const searchInput = document.getElementById('searchInput');
+    const container = document.querySelector('.container');
 
     searchResultsContainer.style.display = 'block'; // Show the search product modal
+    container.style.display = 'block';
 
     searchResultsContainer.innerHTML = ''; // Clear previous search results
     if (products.length === 0) {
