@@ -265,6 +265,38 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// New User Registration
+app.post('/register', async (req, res) => {
+    try {
+        // Extract user data from request body
+        const { email, username, password } = req.body;
+
+        // Validate required fields
+        if (!email || !username || !password) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
+        // Create a new user object
+        const newUser = {
+            email,
+            username,
+            password
+        };
+
+        // Insert the new user into the database
+        const db = client.db('myDatabase');
+        const result = await db.collection('users').insertOne(newUser);
+
+        console.log('New user registered:', newUser);
+
+        // Send a success response with the ID of the inserted user
+        res.status(201).json({ message: 'User inserted successfully', username: newUser });
+    } catch (error) {
+        console.error('Error registering user:', error);
+        res.status(500).json({ error: 'Error registering user' });
+    }
+});
+
 
 
 const PORT = process.env.PORT || 8080;

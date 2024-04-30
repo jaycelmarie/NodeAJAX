@@ -108,8 +108,90 @@ input[type="submit"]:hover {
     align-items: center;
 }
 
+/* Registration Form */
+.modal-register {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scrolling if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+
+/* Modal content */
+.modal-content-register {
+    background-color: #fefefe;
+    margin: 10% auto; /* Center modal vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px; /* Set maximum width */
+    border-radius: 5px;
+}
+
+#registerForm {
+    margin-top: 20px;
+}
+
+#registerForm {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#registerForm input, #resgisterForm button {
+    margin-bottom: 10px;
+}
+
 /* Log in form */
+.modal-login {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scrolling if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+
+/* Modal content */
+.modal-content-login {
+    background-color: #fefefe;
+    margin: 10% auto; /* Center modal vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px; /* Set maximum width */
+    border-radius: 5px;
+}
+
+/* Login form */
+/* Form labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Form input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
 #loginForm {
+    margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;

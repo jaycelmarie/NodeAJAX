@@ -29,9 +29,9 @@
         </div>
         <nav>
 
-            <div id="loginModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
+            <!-- Login Modal -->
+            <div id="loginModal" class="modal-login">
+            <div class="modal-content-login">
                 <h2>Login</h2>
                 <form id="loginForm">
                 <label for="username">Username or Email:</label>
@@ -42,6 +42,23 @@
                 </form>
             </div>
             </div>
+
+            <!-- Register Modal -->
+            <div id="registerModal" class="modal-register">
+                <div class="modal-content-register">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <button type="submit">Register</button>
+                    </form>
+                </div>
+            </div>
+            
 
              <!-- Welcome Message Container -->
             <div id="welcomeMessageContainer">

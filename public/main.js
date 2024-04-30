@@ -1,17 +1,78 @@
+// ===== USER REGISTRATION =======
+const regModal = document.querySelector(".modal-register");
+const regBtn = document.getElementById("regButton");
+const regForm = document.getElementById("registerForm");
+
+// When the user clicks the button, open the modal
+regBtn.addEventListener("click", function() {
+  regModal.style.display = "block";
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", function(event) {
+    if (event.target === regModal) {
+      regModal.style.display = "none";
+    }
+});
+
+// Function to handle registration form submission
+async function registerUser(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+    
+    // Get form data
+    const formData = new FormData(document.getElementById('registerForm'));
+
+    // Convert FormData to JSON object
+    const jsonObject = {};
+    formData.forEach((value, key) => {
+        jsonObject[key] = value;
+    });
+    const jsonData = JSON.stringify(jsonObject);
+
+    try {
+        // Send a POST request to your server to register the user
+        const response = await fetch("/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: jsonData
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            alert(responseData.message); // Display success message
+            console.log("User registered successfully!");
+            regForm.reset();
+            regModal.style.display = 'none';
+        } else {
+            // Registration failed
+            console.error("Failed to register user:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error registering user:", error);
+    }
+}
+
+// Add event listener to the registration form for form submission
+regForm.addEventListener("submit", registerUser);
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", function(event) {
+    if (event.target === regModal) {
+        regModal.style.display = "none";
+    }
+});
+
+
 // ===== USER LOG IN =============
 // Get the modal and the login button
-const modal = document.getElementById("loginModal");
+const modal = document.querySelector(".modal-login");
 const loginBtn = document.getElementById("loginButton");
 
 // When the user clicks the button, open the modal
 loginBtn.addEventListener("click", function() {
   modal.style.display = "block";
-});
-
-// When the user clicks on <span> (x), close the modal
-const closeBtn = document.querySelector(".close");
-closeBtn.addEventListener("click", function() {
-  modal.style.display = "none";
 });
 
 // When the user clicks anywhere outside of the modal, close it
@@ -20,8 +81,6 @@ window.addEventListener("click", function(event) {
     modal.style.display = "none";
   }
 });
-
-// Client-side JavaScript
 
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
