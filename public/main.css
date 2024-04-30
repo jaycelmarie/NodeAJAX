@@ -16,6 +16,10 @@ img {
     height: auto; /* Maintain aspect ratio */
 }
 
+footer{
+	text-align:center;
+}
+
 /* Make the logo smaller */
 #logo {
     width: 100px; /* Adjust the width as needed */
@@ -89,7 +93,7 @@ img {
 
 .other-buttons {
     display: flex;
-    margin-left: 10px; /* Add space between buttons */
+    margin-left: 10px; 
 }
 
 /* Button styling */

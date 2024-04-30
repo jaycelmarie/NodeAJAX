@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const addProductForm = document.getElementById('addProductForm');
     const updateProductForm = document.getElementById('updateProductForm');
     const deleteProductSection = document.getElementById('deleteProductSection');
+    const searchBtn = document.getElementById('searchBtn');
+
+    // Event listener for Search Results
+    searchBtn.addEventListener('click', () => {
+        hideForms();
+    });
 
     // Event listener for Add Product button
     addProductButton.addEventListener('click', () => {
