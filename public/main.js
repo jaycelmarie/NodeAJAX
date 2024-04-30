@@ -1,3 +1,65 @@
+// ===== USER LOG IN =============
+// Get the modal and the login button
+const modal = document.getElementById("loginModal");
+const loginBtn = document.getElementById("loginButton");
+
+// When the user clicks the button, open the modal
+loginBtn.addEventListener("click", function() {
+  modal.style.display = "block";
+});
+
+// When the user clicks on <span> (x), close the modal
+const closeBtn = document.querySelector(".close");
+closeBtn.addEventListener("click", function() {
+  modal.style.display = "none";
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", function(event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// Client-side JavaScript
+
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    const usernameEmail = document.getElementById('usernameEmail').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ usernameEmail, password })
+        });
+
+        if (response.ok) {
+            const user = await response.json();
+            displayWelcomeMessage(user.username);
+        } else {
+            alert('Invalid username/email or password.');
+        }
+    } catch (error) {
+        console.error('Error logging in:', error);
+        alert('An error occurred while logging in. Please try again later.');
+    }
+});
+
+function displayWelcomeMessage(username) {
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    welcomeMessage.textContent = `Welcome, ${username}`;
+    welcomeMessage.style.fontSize = '50px'; // Set font size
+    welcomeMessage.style.fontWeight = 'bold'; // Set font weight
+    welcomeMessage.style.color = '#333'; // Set text color
+    welcomeMessage.style.display = 'block';
+    modal.style.display = 'none';
+}
+
 // ====== START OF SLIDESHOW ===========
 let slideIndex = 0;
 showSlides();
@@ -61,11 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteProductButton = document.getElementById('deleteProductButton');
     const searchSkuButton = document.getElementById('searchSkuButton');
     const skuToDeleteInput = document.getElementById('skuToDelete');
+    const container = document.querySelector('.container');
 
     // Event listener for delete product button
     deleteProductButton.addEventListener('click', () => {
         const deleteProductSection = document.getElementById('deleteProductSection');
         deleteProductSection.style.display = 'block';
+        container.style.display = 'block';
     });
 
     // Event listener for search SKU button
@@ -277,8 +341,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // ====== START OF ADD PRODUCT FORM ============
 document.addEventListener('DOMContentLoaded', () => {
     const addProductForm = document.getElementById('addProductForm');
+    const showAddProductForm = document.getElementById('showAddProductForm');
+    const container = document.querySelector('.container');
     const form = document.getElementById('productForm');
     const skuInput = document.getElementById('sku');
+
+    // Event listener for clicking the "Add Product" button
+    showAddProductForm.addEventListener('click', () => {
+        addProductForm.style.display = 'block'; // Show the search product modal
+        container.style.display = 'block'; // Show the contatainer
+      });
 
     // Event listener for form submission
     addProductForm.querySelector('form').addEventListener('submit', async (event) => {

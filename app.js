@@ -24,7 +24,8 @@ async function connectToDb() {
 async function createCollection() {
     const db = client.db('myDatabase');
     await db.createCollection('products');
-    console.log("Created collection 'products'");
+    await db.createCollection('users');
+    console.log("Created collection 'products', 'users'");
 }
 
 async function insertProductsToDb(products) {
@@ -37,48 +38,34 @@ async function insertProductsToDb(products) {
     }
 }
 
-async function readProductsFromDb() {
+async function insertUsersToDb(users) {
     try {
         const db = client.db('myDatabase');
-        const products = await db.collection('products').find().toArray();
-        console.log('Fetched products from MongoDB:', products);
-        return products;
+        const result = await db.collection('users').insertMany(users);
+        console.log(`${result.insertedCount} users inserted into MongoDB`);
     } catch (error) {
-        console.error('Error reading products from MongoDB:', error);
-        return [];
+        console.error('Error inserting users into MongoDB:', error);
     }
 }
+
+// async function readProductsFromDb() {
+//     try {
+//         const db = client.db('myDatabase');
+//         const products = await db.collection('products').find().toArray();
+//         console.log('Fetched products from MongoDB:', products);
+//         return products;
+//     } catch (error) {
+//         console.error('Error reading products from MongoDB:', error);
+//         return [];
+//     }
+// }
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
-app.get('/products', async (req, res) => {
-    try {
-        const products = await readProductsFromDb();
-        if (products.length === 0) {
-            return res.status(404).send('No products found');
-        }
-        const productHtmlTemplate = fs.readFileSync(path.join(__dirname, 'client/products.html'), 'utf8');
-        const productItems = products.map(product => `
-            <li>
-                <h2>${product.name}</h2>
-                <p>SKU: ${product.sku}</p>
-                <p>Type: ${product.type}</p>
-                <p>Price: $${product.price}</p>
-                <p>Description: ${product.description}</p>
-                <p>Manufacturer: ${product.manufacturer}</p>
-                <p>Model: ${product.model}</p>
-                <p>URL: <a href="${product.url}">${product.url}</a></p>
-                <img src="${product.image}" alt="${product.name}">
-            </li>
-        `).join('');
-        const modifiedHtml = productHtmlTemplate.replace('<!-- Product items will be appended here -->', productItems);
-        res.send(modifiedHtml);
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).send('Error fetching products');
-    }
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/about.html'));
 });
 
 // ===== PRICE SEARCH UP ========
@@ -254,6 +241,31 @@ app.delete('/delete/:sku', async (req, res) => {
     }
 });
 
+// User Login
+app.post('/login', async (req, res) => {
+    const { usernameEmail, password } = req.body;
+
+    const db = client.db('myDatabase');
+
+    try {
+        // Check if the username or email exists in the database
+        const user = await db.collection('users').findOne({ $or: [{ username: usernameEmail }, { email: usernameEmail }] });
+
+        // If user is not found or password doesn't match, send error response
+        if (!user || user.password !== password) {
+            return res.status(401).json({ error: 'Invalid username/email or password' });
+        }
+
+        console.log({ username: user.username });
+        // If user is found and password matches, send user data in response
+        res.json({ username: user.username });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ error: 'An error occurred while logging in' });
+    }
+});
+
+
 
 const PORT = process.env.PORT || 8080;
 
@@ -265,6 +277,10 @@ const PORT = process.env.PORT || 8080;
         const productsData = fs.readFileSync(productsFilePath, 'utf8');
         const products = JSON.parse(productsData);
         await insertProductsToDb(products);
+        const usersFilePath = path.join(__dirname, 'open-data-set', 'users.json');
+        const usersData = fs.readFileSync(usersFilePath, 'utf8');
+        const users = JSON.parse(usersData);
+        await insertUsersToDb(users);
         app.listen(PORT, () => {
             console.log(`Server is listening on port ${PORT}`);
         });

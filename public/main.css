@@ -9,6 +9,7 @@ body{
 /* Center the logo horizontally */
 nav {
     text-align: center;
+    margin-top: -50px;
 }
 
 img {
@@ -96,8 +97,42 @@ input[type="submit"]:hover {
 }
 
 .content{
-    overflow-y: auto;
     height: 100vh;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.content-search{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Log in form */
+#loginForm {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginForm input, #loginForm button {
+    margin-bottom: 10px;
+}
+
+/* Welcome Message Container */
+#welcomeMessageContainer {
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#loginButton{
+    padding: 10px;
+    justify-content: flex-end;
+    display: flex;
+    margin-left: auto;
+    margin-right: 100px;
 }
 
 /* Container */
@@ -110,11 +145,10 @@ input[type="submit"]:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
     margin: 20px auto; /* Center the container horizontally */
     max-width: 70%; /* Maximum width */
-    height: auto; /* Allow height to adjust based on content */
-    max-height: 650px; /* Set a maximum height */
-    overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
     padding: 20px;
     border-radius: 5px; /* Adjust the value as needed */
+    height: 500pv; /* Set a specific height */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .container h1 {
@@ -203,6 +237,8 @@ input[type="submit"]:hover {
 
 #searchForm{
     width: 50%;
+    flex-direction: column;
+    align-items: center;
 }
 
 
