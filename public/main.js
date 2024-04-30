@@ -66,7 +66,6 @@ window.addEventListener("click", function(event) {
 
 
 // ===== USER LOG IN =============
-// Get the modal and the login button
 const modal = document.querySelector(".modal-login");
 const loginBtn = document.getElementById("loginButton");
 
@@ -132,7 +131,7 @@ function showSlides() {
   slideIndex++;
   if (slideIndex > slides.length) {slideIndex = 1}
   slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 10000); // Change image every 2 seconds
+  setTimeout(showSlides, 10000); // Change image every 10 seconds
 }
 
 // ====== BUTTON CLICKS - HIDING =============
@@ -178,7 +177,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ====== START OF DELETE PRODUCT ============
 document.addEventListener('DOMContentLoaded', () => {
-    // Get the delete product button, search SKU button, and SKU input field
     const deleteProductButton = document.getElementById('deleteProductButton');
     const searchSkuButton = document.getElementById('searchSkuButton');
     const skuToDeleteInput = document.getElementById('skuToDelete');
@@ -247,7 +245,6 @@ async function deleteProductListener(product) {
     }
 }
 
- 
 });
 
 // ====== START OF UPDATE PRODUCT FORM ============
@@ -296,26 +293,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-  
-    // Function to display the update form with product details
     function displayUpdateForm(product) {
+        // to show product on console
+        console.log(product);
 
-    console.log(product);
-
-    // Populate the form fields with product details
-    updateProductForm.querySelector('#name_upt').value = product[0].name;
-    updateProductForm.querySelector('#sku_upt').value = product[0].sku;
-    updateProductForm.querySelector('#type_upt').value = product[0].type;
-    updateProductForm.querySelector('#price_upt').value = product[0].price;
-    updateProductForm.querySelector('#description_upt').value = product[0].description;
-    updateProductForm.querySelector('#manufacturer_upt').value = product[0].manufacturer;
-    updateProductForm.querySelector('#model_upt').value = product[0].model;
-    updateProductForm.querySelector('#url_upt').value = product[0].url;
-    updateProductForm.querySelector('#image_upt').value = product[0].image;
-  
-    // Show the update product form
-    updateProductForm.style.display = 'block';
-  }
+        // Populate the form fields with product details
+        updateProductForm.querySelector('#name_upt').value = product[0].name;
+        updateProductForm.querySelector('#sku_upt').value = product[0].sku;
+        updateProductForm.querySelector('#type_upt').value = product[0].type;
+        updateProductForm.querySelector('#price_upt').value = product[0].price;
+        updateProductForm.querySelector('#description_upt').value = product[0].description;
+        updateProductForm.querySelector('#manufacturer_upt').value = product[0].manufacturer;
+        updateProductForm.querySelector('#model_upt').value = product[0].model;
+        updateProductForm.querySelector('#url_upt').value = product[0].url;
+        updateProductForm.querySelector('#image_upt').value = product[0].image;
+    
+        // Show the update product form
+        updateProductForm.style.display = 'block';
+   } // End of function displayUpdateForm
 
     // Define updatedProduct with initial values or empty object
     let updatedProduct = {};
@@ -332,8 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-// Function to add event listener for submitting the update product form
+    // Function to add event listener for submitting the update product form
     function updateProductListener(product) {
         const skuInput = document.getElementById('sku');
 
@@ -374,10 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (response.status === 200) {
                         alert('Product updated successfully.');
                         console.log(product);
-                        //updateProductForm.reset(); // Clear the form after successful submission
                         updateProductForm.style.display = 'none'; // Hide the form after successful submission
                     } 
-
                 } catch (error) {
                     console.error('Error updating product:', error);
                     alert('Error updating product. Please try again.');
@@ -388,15 +380,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
     });
     
- // Validation function to check if the input is a valid number
- function validateSKU(sku) {
-    return /^\d+$/.test(sku);
-}
-}
-
-});
+    // Validation function to check if the input is a valid number
+    function validateSKU(sku) {
+        return /^\d+$/.test(sku);
+    } // End of validateSKU
+  }
+}); // End of addevenetListner
   
-
 // ====== START OF ADD PRODUCT FORM ============
 document.addEventListener('DOMContentLoaded', () => {
     const addProductForm = document.getElementById('addProductForm');
@@ -456,11 +446,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
        
     });
+
     // Validation function to check if the input is a valid number
     function validateSKU(sku) {
         return /^\d+$/.test(sku);
-}
-});
+    } // End of validateSKU func
+
+}); // End of listener
 
 // ====== START OF SEARCH FUNCTIONALITY ========
 const minValue = document.getElementById("min-value");
@@ -541,7 +533,7 @@ async function searchAndFilterProducts() {
 
 // Add event listener for keypress event on the search input
 document.getElementById('searchInput').addEventListener('keypress', function(event) {
-    // Check if the key pressed is Enter (key code 13)
+    // Check if the key pressed is Enter
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent form submission
         searchAndFilterProducts();

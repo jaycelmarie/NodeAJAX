@@ -102,7 +102,6 @@ app.get('/search', async (req, res) => {
 });
 
 // Insert route to add a new product
-// Route to insert a new product into the database
 app.post('/insert', async (req, res) => {
     try {
         // Extract product data from request body
@@ -214,7 +213,7 @@ app.put('/update/:id', async (req, res) => {
                 res.status(404).json({ error: 'Product not found' });
             }
         } else {
-            // If no fields were modified, return a success response
+            // If no fields were modified, return this
             res.status(200).json({ message: 'No changes to update' });
         }
     } catch (error) {
@@ -296,8 +295,6 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ error: 'Error registering user' });
     }
 });
-
-
 
 const PORT = process.env.PORT || 8080;
 

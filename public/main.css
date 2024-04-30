@@ -13,8 +13,8 @@ nav {
 }
 
 img {
-    width: 200px; /* Set the desired width */
-    height: auto; /* Maintain aspect ratio */
+    width: 200px; 
+    height: auto; 
 }
 
 footer{
@@ -22,10 +22,10 @@ footer{
 }
 
 footer a {
-    color: #0366d6; /* Link color */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Make it bold */
-    margin-left: 20px; /* Adjust spacing from the copyright text */
+    color: #0366d6; 
+    text-decoration: none; 
+    font-weight: bold; 
+    margin-left: 20px; 
 }
 
 h4 {
@@ -46,59 +46,59 @@ p {
     font-size: 20px;
     font-weight: 600;
     padding: 5px;
-    margin: 0; /* Remove default margin */
+    margin: 0;
 }
 
 /* Button styling */
 button {
-    background-color: #007bff; /* Blue background color */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Add padding */
-    cursor: pointer; /* Add cursor pointer */
-    margin: 5px; /* Add margin */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
+    background-color: #007bff; 
+    color: #fff; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px; 
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
+    background-color: #0056b3; 
 }
 
 /* Form styling */
 form {
-    margin: 20px 0; /* Add margin */
+    margin: 20px 0; 
 }
 
 input[type="text"],
 input[type="number"],
 input[type="url"],
 textarea {
-    padding: 10px; /* Add padding */
-    margin-bottom: 10px; /* Add bottom margin */
-    width: 100%; /* Full width */
-    box-sizing: border-box; /* Include padding and border in width */
-    border: 1px solid #ccc; /* Add border */
-    border-radius: 5px; /* Rounded corners */
+    padding: 10px; 
+    margin-bottom: 10px; 
+    width: 100%; 
+    box-sizing: border-box; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
 }
 
 input[type="submit"] {
-    background-color: #28a745; /* Green submit button */
+    background-color: #28a745;
 }
 
 input[type="submit"]:hover {
-    background-color: #218838; /* Darker green color on hover */
+    background-color: #218838; 
 }
 
 /* Make the logo smaller */
 #logo {
-    width: 100px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 100px;
+    height: auto;
 }
 
 .content{
     height: 100vh;
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto;
 }
 
 .content-search{
@@ -110,15 +110,15 @@ input[type="submit"]:hover {
 
 /* Registration Form */
 .modal-register {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top of everything */
+    display: none; 
+    position: fixed; 
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
+    width: 100%; 
     height: 100%; /* Full height */
-    overflow: auto; /* Enable scrolling if needed */
-    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+    overflow: auto; /* Enable scrolling */
+    background-color: rgba(0, 0, 0, 0.4); 
 }
 
 /* Modal content */
@@ -149,14 +149,14 @@ input[type="submit"]:hover {
 
 /* Log in form */
 .modal-login {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top of everything */
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scrolling if needed */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scrolling */
     background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
 }
 
@@ -216,56 +216,55 @@ input[type="password"] {
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
-    margin: 20px auto; /* Center the container horizontally */
-    max-width: 70%; /* Maximum width */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    margin: 20px auto; 
+    max-width: 70%; 
     padding: 20px;
-    border-radius: 5px; /* Adjust the value as needed */
-    height: 500pv; /* Set a specific height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 5px; 
+    height: 500pv; 
+    overflow-y: auto; 
 }
 
 .container h1 {
-    font-size: 24px; /* Adjust the heading font size */
-    margin-bottom: 15px; /* Add spacing below the heading */
+    font-size: 24px;
+    margin-bottom: 15px; 
     text-align: center;
 }
 
 .container label {
-    font-weight: bold; /* Make labels bold */
+    font-weight: bold; 
 }
 
 .container input[type="text"],
 .container input[type="number"],
 .container input[type="url"],
 .container textarea {
-    /* Your existing input field styles */
-    font-size: 16px; /* Adjust the font size */
+    font-size: 16px; 
 }
 
 /* Style for the form buttons */
 .container button {
-    padding: 10px 20px; /* Add padding */
-    margin-right: 10px; /* Add spacing between buttons */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Add border radius */
-    background-color: #007bff; /* Blue background color */
-    color: #fff; /* White text color */
-    cursor: pointer; /* Add pointer cursor */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    padding: 10px 20px; 
+    margin-right: 10px; 
+    border: none; 
+    border-radius: 5px; 
+    background-color: #007bff; 
+    color: #fff; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
 }
 
 .container button:hover {
-    background-color: #0056b3; /* Darker blue background color on hover */
+    background-color: #0056b3;
 }
 
 /* Style for the form buttons with class "submit" */
 .container button[type="submit"] {
-    background-color: #28a745; /* Green background color */
+    background-color: #28a745; 
 }
 
 .container button[type="submit"]:hover {
-    background-color: #218838; /* Darker green background color on hover */
+    background-color: #218838; 
 }
 
 .other-buttons {
@@ -478,32 +477,10 @@ input[type="range"]::-webkit-slider-runnable-track{
   border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
 }
 
-/* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* The dots/bullets/indicators */
 .dot {
   cursor: pointer;
   height: 15px;
@@ -542,7 +519,7 @@ input[type="range"]::-webkit-slider-runnable-track{
     margin: 0; /* Reset margin */
     background-color: #717171;
     border: none;
-    transition: background-color 0.3s; /* Add transition for smoother hover effect */
+    transition: background-color 0.3s; 
 }
 
 #dropbtn:hover {
@@ -556,9 +533,8 @@ input[type="range"]::-webkit-slider-runnable-track{
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 0; /* Reset padding */
     margin: 0; /* Reset margin */
-    top: 100%; /* Position dropdown content below the button */
+    top: 100%; 
 }
-
 
 .dropdown:hover .dropdown-content {
     display: block;
