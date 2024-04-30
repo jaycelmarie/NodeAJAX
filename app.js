@@ -1,8 +1,10 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const { MongoClient, ObjectId } = require('mongodb');
+const { requireLogin } = require('./authMiddleware');
 const fs = require('fs');
 
 const app = express();
@@ -11,6 +13,11 @@ app.use(express.static(path.join(__dirname, '../my-app/build')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
+app.use(session({
+    secret: 'secretkey',
+    resave: false,
+    saveUninitialized: true
+}));
 
 let client;
 
@@ -256,6 +263,15 @@ app.post('/login', async (req, res) => {
         }
 
         console.log({ username: user.username });
+        // Validate username and password (replace with your authentication logic)
+        if (user.username || user.email) {
+            // If credentials are valid, store user information in session
+            req.session.user = {
+                username: user.username,
+                email: user.email,
+                password: user.password
+            }
+        };
         // If user is found and password matches, send user data in response
         res.json({ username: user.username });
     } catch (error) {
@@ -263,6 +279,27 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while logging in' });
     }
 });
+
+// Logout
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.clearCookie('session-id'); // Clear the session cookie if necessary
+            res.status(200).json({ message: 'Logout successful' });
+        }
+    });
+});
+
+// Protected route example
+app.get('/protected', requireLogin, (req, res) => {
+    res.send('Welcome to the protected route');
+});
+
+// File path to the users JSON file
+const usersFilePath = 'open-data-set/users.json';
 
 // New User Registration
 app.post('/register', async (req, res) => {
@@ -288,8 +325,34 @@ app.post('/register', async (req, res) => {
 
         console.log('New user registered:', newUser);
 
-        // Send a success response with the ID of the inserted user
-        res.status(201).json({ message: 'User inserted successfully', username: newUser });
+        // Read the existing users JSON file
+        fs.readFile(usersFilePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error reading users file:', err);
+                return res.status(500).json({ error: 'Error registering user' });
+            }
+
+            // Parse the JSON data into a JavaScript object
+            let users = JSON.parse(data);
+
+            // Append the new user object to the existing array of users
+            users.push(newUser);
+
+            // Convert the updated JavaScript object back to JSON
+            const updatedData = JSON.stringify(users, null, 2);
+
+            // Write the updated JSON content back to the file
+            fs.writeFile(usersFilePath, updatedData, (err) => {
+                if (err) {
+                    console.error('Error writing users file:', err);
+                    return res.status(500).json({ error: 'Error registering user' });
+                }
+                console.log('User registration successful!');
+
+                // Send a success response with the ID of the inserted user
+                res.status(201).json({ message: 'User inserted successfully', username: newUser });
+       });
+     });
     } catch (error) {
         console.error('Error registering user:', error);
         res.status(500).json({ error: 'Error registering user' });

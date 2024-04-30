@@ -1,3 +1,31 @@
+// ===== USER LOG OUT =======
+const logoutButton = document.getElementById('logoutButton');
+
+logoutButton.addEventListener('click', async () => {
+    try {
+        const response = await fetch('/logout', {
+            method: 'GET',
+            credentials: 'same-origin', // Include cookies in the request
+        });
+
+        if (response.ok) {
+            // Logout successful
+            console.log('Logout successful');
+            alert('You have successfully logged out.');
+            welcomeMessage.style.display = 'none';
+            logoutButton.style.display = 'none';
+        } else {
+            // Logout failed
+            console.error('Failed to logout:', response.statusText);
+            // Handle error or display message to the user
+        }
+    } catch (error) {
+        console.error('Error logging out:', error);
+        // Handle error or display message to the user
+    }
+});
+
+
 // ===== USER REGISTRATION =======
 const regModal = document.querySelector(".modal-register");
 const regBtn = document.getElementById("regButton");
@@ -99,6 +127,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         if (response.ok) {
             const user = await response.json();
             displayWelcomeMessage(user.username);
+            logoutButton.style.display = 'block';
         } else {
             alert('Invalid username/email or password.');
         }
